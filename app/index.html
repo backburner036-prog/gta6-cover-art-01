@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Coral Cover — GTA-style cover maker</title>
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<main class="app">
+  <section class="controls">
+    <h1>Coral Cover</h1>
+    <p class="tag">Your photo + a caption, made into GTA-style cover art. Runs
+    fully offline — photos never leave your machine.</p>
+
+    <div id="slots" class="slots"></div>
+
+    <label>Caption <input id="caption" type="text" maxlength="24" value="SUNSET HEIST"></label>
+    <label>Subtitle <input id="subtitle" type="text" maxlength="40" value="CORAL BAY • EST. 2026"></label>
+
+    <div class="group"><span>Layout</span><div id="layouts" class="picker"></div></div>
+    <div class="group"><span>Colour grade</span><div id="grades" class="picker"></div></div>
+    <div class="group"><span>Export size</span><div id="sizes" class="picker"></div></div>
+
+    <div class="actions">
+      <button id="export" type="button">Export PNG</button>
+      <button id="shuffle" type="button" class="ghost">Shuffle samples</button>
+    </div>
+    <p id="status" role="status">Tip: drag a panel to move its photo, scroll over it to zoom.</p>
+    <p class="fine">Original art made by this app. Not affiliated with Rockstar Games;
+    no Rockstar logo, artwork or font is used. Sample photos are AI-made.</p>
+  </section>
+  <section class="preview">
+    <canvas id="cover" width="1920" height="1080" aria-label="The cover preview"></canvas>
+  </section>
+</main>
+<script type="module" src="./src/main.js"></script>
+</body>
+</html>
