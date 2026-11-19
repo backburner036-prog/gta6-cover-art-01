@@ -1,39 +1,80 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Coral Cover — GTA-style cover maker</title>
-<link rel="stylesheet" href="./style.css">
+<title>Coral Cover — GTA-style cover art maker</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-<main class="app">
-  <section class="controls">
-    <h1>Coral Cover</h1>
-    <p class="tag">Your photo + a caption, made into GTA-style cover art. Runs
-    fully offline — photos never leave your machine.</p>
+<header class="topbar">
+  <div class="brand"><span class="brand-star">★</span> CORAL BAY</div>
+  <div class="brand-title">Coral Cover</div>
+  <div class="brand-note">Multi-panel poster cover art · offline · no upload</div>
+</header>
 
-    <div id="slots" class="slots"></div>
-
-    <label>Caption <input id="caption" type="text" maxlength="24" value="SUNSET HEIST"></label>
-    <label>Subtitle <input id="subtitle" type="text" maxlength="40" value="CORAL BAY • EST. 2026"></label>
-
-    <div class="group"><span>Layout</span><div id="layouts" class="picker"></div></div>
-    <div class="group"><span>Colour grade</span><div id="grades" class="picker"></div></div>
-    <div class="group"><span>Export size</span><div id="sizes" class="picker"></div></div>
-
-    <div class="actions">
-      <button id="export" type="button">Export PNG</button>
-      <button id="shuffle" type="button" class="ghost">Shuffle samples</button>
+<main class="editor">
+  <section class="preview-col">
+    <div class="preview-wrap">
+      <canvas id="coverCanvas" aria-label="Cover preview — drag to pan, scroll to zoom"></canvas>
     </div>
-    <p id="status" role="status">Tip: drag a panel to move its photo, scroll over it to zoom.</p>
-    <p class="fine">Original art made by this app. Not affiliated with Rockstar Games;
-    no Rockstar logo, artwork or font is used. Sample photos are AI-made.</p>
+    <p class="hint">Drag a panel to pan it · Scroll over a panel to zoom · Sliders below fine-tune each panel</p>
+    <div class="export-bar">
+      <button id="exportBtn" type="button">Export PNG</button>
+      <span id="exportStatus" role="status">Ready — pick a size, then export.</span>
+    </div>
   </section>
-  <section class="preview">
-    <canvas id="cover" width="1920" height="1080" aria-label="The cover preview"></canvas>
-  </section>
+
+  <aside class="controls">
+    <section class="control-group">
+      <h2>Caption</h2>
+      <label class="field"><span>Caption</span>
+        <input id="captionInput" type="text" maxlength="24" value="SUNSET HEIST" autocomplete="off">
+      </label>
+      <label class="field"><span>Subtitle</span>
+        <input id="subtitleInput" type="text" maxlength="40" value="CORAL BAY · EST. 2026" autocomplete="off">
+      </label>
+    </section>
+
+    <section class="control-group">
+      <h2>Layout</h2>
+      <div class="picker" id="layoutPicker">
+        <button type="button" data-layout="poster">Poster</button>
+        <button type="button" data-layout="hero">Hero</button>
+        <button type="button" data-layout="split">Split</button>
+      </div>
+    </section>
+
+    <section class="control-group">
+      <h2>Colour grade</h2>
+      <div class="picker" id="gradePicker">
+        <button type="button" data-grade="sunset">Sunset</button>
+        <button type="button" data-grade="neon">Neon Night</button>
+        <button type="button" data-grade="dusk">Palm Dusk</button>
+      </div>
+    </section>
+
+    <section class="control-group">
+      <h2>Export size</h2>
+      <div class="picker" id="sizePicker">
+        <button type="button" data-size="square">1080 × 1080</button>
+        <button type="button" data-size="portrait">1080 × 1350</button>
+        <button type="button" data-size="landscape">1920 × 1080</button>
+      </div>
+    </section>
+
+    <section class="control-group">
+      <h2>Panels</h2>
+      <div id="slots"></div>
+    </section>
+  </aside>
 </main>
-<script type="module" src="./src/main.js"></script>
+
+<footer class="foot">
+  Coral Cover makes poster art for the fictional city of Coral Bay. No Rockstar
+  Games logo, artwork or font is used. Your photos stay on your machine.
+</footer>
+
+<script type="module" src="src/main.js"></script>
 </body>
 </html>
