@@ -6,7 +6,7 @@
 // vendor/makefun-app.ts. Deterministic: the same repository writes the same
 // dossier.json bytes every time (buildDossier sorts every path it reads).
 
-import { cpSync, mkdirSync, rmSync, writeFileSync } from 'node:fs';
+import { cpSync, mkdirSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { buildDossier } from './vendor/makefun-app.ts';
@@ -16,8 +16,12 @@ const outDir = process.env.MAKEFUN_OUTPUT_DIR ?? '/output';
 
 function main(): void {
   // Start from a clean output directory so a stale file can never leak in.
-  rmSync(outDir, { recursive: true, force: true });
+  // Clear only the CONTENTS, never the directory itself: on the grader
+  // /output may be a mount point, and removing it fails with EBUSY.
   mkdirSync(outDir, { recursive: true });
+  for (const entry of readdirSync(outDir)) {
+    rmSync(join(outDir, entry), { recursive: true, force: true });
+  }
 
   // The app (static files) and its screenshots, copied whole.
   cpSync(join(repoRoot, 'app'), join(outDir, 'app'), { recursive: true });
